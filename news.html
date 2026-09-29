@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>News & Aktuelles – WAT Mariahilf Tischtennis</title>
+  
+  <link rel="icon" type="image/png" sizes="150x150" href="imgs/favlogo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar-wrapper">
+    <div id="navbar-placeholder"></div>
+  </header>
+
+  <!-- Hero Bereich -->
+  <section class="hero-section">
+    <div class="container">
+      <a href="index.html" class="btn-outline" style="margin-bottom: 14px;">← Hauptseite</a>
+      <div class="hero-badge">AKTUELL</div>
+      <h1 class="hero-title">NEWS & <span class="text-stroke">INFOS</span></h1>
+      <p class="hero-subtitle">Bleiben Sie auf dem Laufenden über Meisterschaften und Vereinsaktivitäten.</p>
+    </div>
+  </section>
+
+  <!-- News Section -->
+  <section class="section">
+    <div class="container">
+      <div class="news-grid" id="newsGrid">
+        <p style="color: var(--text-dim);">Lade News...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Trage hier den CSV-Link deiner News-Google-Tabelle ein:
+    const newsCsvUrl = "https://docs.google.com/spreadsheets/d/1wsez9M8EGLXVtY9fFeVoDb1Xrwd2SEb_s6SEXiz22pY/export?format=csv";
+      const newsGrid = document.getElementById('newsGrid');
+
+      fetch(newsCsvUrl)
+        .then(response => response.text())
+        .then(text => {
+          const lines = text.split('\n').slice(1); // Überspringt die Kopfzeile
+          newsGrid.innerHTML = ''; // Lade-Text löschen
+
+          let hasContent = false;
+
+          lines.forEach(line => {
+            // CSV-Zeile aufteilen (berücksichtigt einfache Kommas im Text)
+            const parts = line.split(',');
+            if (parts.length >= 3) {
+              const date = parts[0].trim();
+              const title = parts[1].trim();
+              const textContent = parts.slice(2).join(',').trim(); // Falls im Text Kommas vorkommen
+
+              if (date && title) {
+                hasContent = true;
+                const card = document.createElement('article');
+                card.className = 'news-card';
+                card.innerHTML = `
+                  <div class="news-header">
+                    <span class="news-date">${date}</span>
+                  </div>
+                  <h2 class="news-title">${title}</h2>
+                  <p class="news-text">${textContent}</p>
+                `;
+                newsGrid.appendChild(card);
+              }
+            }
+          });
+
+          if (!hasContent) {
+            newsGrid.innerHTML = `<p style="color: var(--text-dim);">Aktuell sind keine News vorhanden.</p>`;
+          }
+        })
+        .catch(err => {
+          console.error("Fehler beim Laden der News:", err);
+          newsGrid.innerHTML = `<p style="color: var(--neon-red);">Fehler beim Laden der News.</p>`;
+        });
+    });
+  </script>
+   <script src="script.js"></script>
+
+</body>
+</html>
