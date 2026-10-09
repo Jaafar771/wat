@@ -1,56 +1,230 @@
-<header class="navbar-wrapper">
-  <div class="container navbar">
-    <!-- Logo -->
-    <a href="index.html" class="brand-logo">
-      <img src="imgs/logo.png" alt="WAT Mariahilf Logo" class="nav-logo-img">
+<header class="site-navbar">
+
+  <div class="nav-shell">
+
+    <!-- =========================================
+         LOGO
+         ========================================= -->
+    <a
+      href="index.html"
+      class="nav-brand"
+      aria-label="WAT Mariahilf Tischtennis"
+    >
+      <img
+        src="imgs/logo.png"
+        alt="WAT Mariahilf Tischtennis"
+        class="nav-logo"
+      >
     </a>
 
-    <!-- Navigation Links -->
-    <nav class="nav-links" id="navMenu">
-      <a href="training.html" class="nav-item">Training 🏓</a>
-      <a href="hallenplan.html" class="nav-item">Hallenplan</a>
-      <a href="galerie.html" class="nav-item">Galerie</a>
-      <a href="index.html#schedule" class="nav-item">Trainingszeiten</a>
-      <a href="woche.html" class="nav-item">Spielplan 📅</a>
-      <a href="index.html#join" class="nav-item">Kontakt</a>
-      
-      <!-- Dropdown -->
-      <div class="nav-item-dropdown">
-        <span class="nav-item dropdown-toggle-btn" style="cursor: pointer;">
-          Infos <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+
+    <!-- =========================================
+         NAVIGATION
+         ========================================= -->
+    <nav
+      class="main-nav"
+      id="navMenu"
+      aria-label="Hauptnavigation"
+    >
+
+      <!-- Training -->
+      <a
+        href="training.html"
+        class="nav-link"
+      >
+        <span>Training</span>
+      </a>
+
+
+      <!-- Hallenplan -->
+      <a
+        href="hallenplan.html"
+        class="nav-link data-page="
+      >
+        Hallenplan
+      </a>
+
+
+      <!-- Galerie -->
+      <a
+        href="galerie.html"
+        class="nav-link"
+      >
+        Galerie
+      </a>
+
+
+      <!-- Trainingszeiten -->
+      <a
+        href="index.html#schedule"
+        class="nav-link"
+      >
+        Trainingszeiten
+      </a>
+
+
+      <!-- Spielplan -->
+      <a
+        href="woche.html"
+        class="nav-link"
+      >
+        Spielplan
+      </a>
+
+
+      <!-- Infos -->
+<div class="nav-dropdown">
+
+  <button
+    type="button"
+    class="nav-link nav-dropdown-button"
+    aria-expanded="false"
+    aria-haspopup="true"
+  >
+    <span>Infos</span>
+    <span class="nav-plus">+</span>
+  </button>
+
+  <div class="nav-dropdown-menu">
+
+    <a href="info.html">
+      <span>
+        <strong>Mitgliedsbeitrag</strong>
+        <small>Alles rund um die Mitgliedschaft</small>
+      </span>
+      <b>↗</b>
+    </a>
+
+    <a href="mannschaften.html">
+      <span>
+        <strong>Mannschaften</strong>
+        <small>Unsere Teams & Spielklassen</small>
+      </span>
+      <b>↗</b>
+    </a>
+
+    <a href="meisterspieler.html">
+      <span>
+        <strong>Meisterspieler</strong>
+        <small>Unsere Spieler im Überblick</small>
+      </span>
+      <b>↗</b>
+    </a>
+
+  </div>
+
+</div>
+
+      <!-- News -->
+      <a
+        href="news.html"
+        class="nav-link"
+      >
+        News
+      </a>
+
+
+      <!-- =====================================
+           MOBILE KONTAKT
+           ===================================== -->
+      <a
+        href="index.html#join"
+        class="mobile-contact"
+      >
+
+        <span>
+          Kontakt aufnehmen
         </span>
-        <div class="dropdown-menu">
-          <a href="info.html">Mitgliedsbeitrag</a>
-          <a href="mannschaften.html">Mannschaften</a>
-          <a href="meisterspieler.html">Meisterspieler</a>
-        </div>
-      </div>
-      
-      <a href="news.html" class="nav-item">News</a> 
+
+        <span class="contact-arrow">
+          ↗
+        </span>
+
+      </a>
+
     </nav>
 
-    <!-- Rechte Seite: Theme-Button und Hamburger-Menu -->
-    <div class="nav-right-side">
-      <div class="toggle-container">
-        <input class="toggle-input" type="checkbox" id="themeToggle" aria-label="Design umschalten">
-        <div class="toggle-handle-wrapper">
-          <div class="toggle-handle">
-            <div class="toggle-handle-knob"></div>
-            <div class="toggle-handle-bar-wrapper">
-              <div class="toggle-handle-bar"></div>
-            </div>
-          </div>
-        </div>
-        <div class="toggle-base">
-          <div class="toggle-base-inside"></div>
-        </div>
-      </div>
 
-      <button class="menu-toggle" id="menuToggle" aria-label="Menü öffnen">
+    <!-- =========================================
+         RECHTE SEITE
+         ========================================= -->
+    <div class="nav-actions">
+
+
+      <!-- =====================================
+           TABLE TENNIS THEME SWITCH
+           ===================================== -->
+      <label
+        class="tt-pro-switch"
+        aria-label="Design umschalten"
+      >
+
+        <input
+          type="checkbox"
+          id="themeToggle"
+        >
+
+        <span class="tt-pro-court">
+
+          <span class="tt-pro-net"></span>
+
+          <span class="tt-pro-paddle">
+
+            <span class="tt-pro-paddle-head"></span>
+
+            <span class="tt-pro-paddle-handle"></span>
+
+          </span>
+
+          <span class="tt-pro-ball"></span>
+
+        </span>
+
+      </label>
+
+
+      <!-- =====================================
+           DESKTOP KONTAKT
+           ===================================== -->
+      <a
+        href="index.html#join"
+        class="desktop-contact"
+      >
+
+        <span>
+          Kontakt
+        </span>
+
+        <span
+          class="contact-arrow"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+
+      </a>
+
+
+      <!-- =====================================
+           MOBILE MENU
+           ===================================== -->
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        type="button"
+        aria-label="Menü öffnen"
+        aria-expanded="false"
+        aria-controls="navMenu"
+      >
+
         <span></span>
         <span></span>
         <span></span>
+
       </button>
+
     </div>
+
   </div>
+
 </header>

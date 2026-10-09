@@ -24,7 +24,7 @@
       <a href="index.html" class="btn-outline hero-back-btn">← Hauptseite</a>
       <div class="hero-badge">RANG- UND MEISTERLISTE</div>
       <h1 class="hero-title">MEISTER<span class="text-stroke">SPIELER</span></h1>
-      <p class="hero-subtitle">Alle Spieler in der übersichtlichen Rangliste mit Echtzeit-Suche.</p>
+      <p class="hero-subtitle">Offizielle RC-Rangliste per 01.07.2026.</p>
     </div>
   </section>
 
@@ -34,7 +34,7 @@
       
       <!-- Steuerungsleiste / Suchfeld -->
       <div class="controls-bar player-controls">
-        <input type="text" class="search-input" id="playerSearch" placeholder="Spieler suchen (Name, Klasse)..." oninput="filterPlayers()">
+        <input type="text" class="search-input" id="playerSearch" placeholder="Spieler suchen (Name)..." onkeyup="filterPlayers()">
       </div>
 
       <!-- Tabellen-Container für perfekte Handy-Ansicht (Scrollbar) -->
@@ -42,41 +42,14 @@
         <table class="meister-table" id="meisterTable">
           <thead>
             <tr>
-              <th>Rang</th>
               <th>Spielername</th>
-              <th>Klasse</th>
-              <th>Punkte</th>
-              <th>Siege</th>
+              <th>2026</th>
+              <th>RC-Punkte</th>
             </tr>
           </thead>
           <tbody id="playerTableBody">
             <tr>
-              <td><strong>#1</strong></td>
-              <td>Maximilian Mustermann</td>
-              <td>Meisterklasse</td>
-              <td>1450</td>
-              <td>42</td>
-            </tr>
-            <tr>
-              <td><strong>#2</strong></td>
-              <td>Alexander Schmidt</td>
-              <td>Profi-Liga</td>
-              <td>1380</td>
-              <td>39</td>
-            </tr>
-            <tr>
-              <td><strong>#3</strong></td>
-              <td>Brigitte Mustermann</td>
-              <td>Meisterklasse</td>
-              <td>1450</td>
-              <td>42</td>
-            </tr>
-            <tr>
-              <td><strong>#4</strong></td>
-              <td>Fritz Mustermann</td>
-              <td>Meisterklasse</td>
-              <td>1450</td>
-              <td>42</td>
+              <td colspan="3" style="text-align: center; color: var(--text-dim);">Lade Rangliste von Google Sheets...</td>
             </tr>
           </tbody>
         </table>
@@ -91,34 +64,8 @@
   <!-- Back-to-Top Button -->
   <button id="backToTop" class="back-to-top" aria-label="Nach oben scrollen">↑</button>
 
-  <!-- Haupt-Script (Lädt Navbar, Footer, Dark Mode etc.) -->
+  <!-- Haupt-Script (Lädt Navbar, Footer, Dark Mode & Rangliste) -->
   <script src="script.js"></script>
-
-  <!-- Such-Skript für die Spieler -->
-  <script>
-    function filterPlayers() {
-      const input = document.getElementById('playerSearch');
-      const filter = input.value.toUpperCase();
-      const table = document.getElementById('meisterTable');
-      const tr = table.getElementsByTagName('tr');
-
-      for (let i = 1; i < tr.length; i++) {
-        let visible = false;
-        const td = tr[i].getElementsByTagName('td');
-        
-        for (let j = 0; j < td.length; j++) {
-          if (td[j]) {
-            if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
-              visible = true;
-              break;
-            }
-          }
-        }
-        
-        tr[i].style.display = visible ? '' : 'none';
-      }
-    }
-  </script>
 
 </body>
 </html>
