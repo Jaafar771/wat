@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Meisterspieler – WAT Mariahilf</title>
+  
+  <link rel="icon" type="image/png" sizes="400x400" href="imgs/favlogo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar-wrapper">
+    <div id="navbar-placeholder"></div>
+  </header>
+
+  <!-- Hero Bereich -->
+  <section class="hero-section">
+    <div class="container">
+      <a href="index.html" class="btn-outline hero-back-btn">← Hauptseite</a>
+      <div class="hero-badge">RANG- UND MEISTERLISTE</div>
+      <h1 class="hero-title">MEISTER<span class="text-stroke">SPIELER</span></h1>
+      <p class="hero-subtitle">Offizielle RC-Rangliste per 01.07.2026.</p>
+    </div>
+  </section>
+
+  <!-- Meisterspieler Sektion mit Suchfeld und Tabelle -->
+  <section class="section">
+    <div class="container">
+      
+      <!-- Steuerungsleiste / Suchfeld -->
+      <div class="controls-bar player-controls">
+        <input type="text" class="search-input" id="playerSearch" placeholder="Spieler suchen (Name)..." onkeyup="filterPlayers()">
+      </div>
+
+      <!-- Tabellen-Container für perfekte Handy-Ansicht (Scrollbar) -->
+      <div class="table-responsive">
+        <table class="meister-table" id="meisterTable">
+          <thead>
+            <tr>
+              <th>Spielername</th>
+              <th>2026</th>
+              <th>RC-Punkte</th>
+            </tr>
+          </thead>
+          <tbody id="playerTableBody">
+            <tr>
+              <td colspan="3" style="text-align: center; color: var(--text-dim);">Lade Rangliste von Google Sheets...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Container für den dynamischen Footer -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Back-to-Top Button -->
+  <button id="backToTop" class="back-to-top" aria-label="Nach oben scrollen">↑</button>
+
+  <!-- Haupt-Script (Lädt Navbar, Footer, Dark Mode & Rangliste) -->
+  <script src="script.js"></script>
+
+</body>
+</html>
