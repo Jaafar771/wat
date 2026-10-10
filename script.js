@@ -999,3 +999,11 @@ function filterPlayers() {
     tbody.appendChild(tr);
   });
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const year = document.getElementById("power-footer-year");
+
+  if (year) {
+    year.textContent = new Date().getFullYear();
+  }
+});
