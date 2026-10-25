@@ -6230,3 +6230,73 @@ body:not(.light-mode) .team-page-main .team-table .table-link {
     box-shadow: 0 8px 20px rgba(255, 0, 85, 0.34);
   }
 }
+
+/* Final footer safeguard: never hide the partner or contact section on desktop. */
+@media (min-width: 601px) and (max-width: 1100px) {
+  body .power-footer__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    align-items: start;
+    gap: 20px;
+  }
+
+  body .power-footer__section:last-child {
+    grid-column: auto !important;
+    max-width: none;
+  }
+}
+
+/* Consistent lift for all interactive buttons on pointer devices. */
+@media (hover: hover) {
+  .btn,
+  .btn-neon,
+  .btn-outline,
+  .card-link,
+  .desktop-contact,
+  .mobile-contact,
+  .power-footer__cta,
+  button[type="submit"] {
+    transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+  }
+
+  .btn:hover,
+  .btn-neon:hover,
+  .btn-outline:hover,
+  .card-link:hover,
+  .desktop-contact:hover,
+  .mobile-contact:hover,
+  .power-footer__cta:hover,
+  button[type="submit"]:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.06);
+    box-shadow: 0 10px 24px rgba(255, 0, 85, 0.22);
+  }
+}
+
+/* Hero copy enters in a calm, staggered slide instead of appearing all at once. */
+@keyframes heroCopySlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.hero-section .container > * {
+  opacity: 0;
+  animation: heroCopySlideIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-section .hero-badge { animation-delay: 0.08s; }
+.hero-section .hero-title { animation-delay: 0.18s; }
+.hero-section .hero-subtitle { animation-delay: 0.29s; }
+.hero-section .hero-actions { animation-delay: 0.4s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-section .container > * {
+    opacity: 1;
+    animation: none;
+  }
+}
