@@ -6304,6 +6304,55 @@ body:not(.light-mode) .hero-section .btn-outline {
   }
 }
 
+/* Hero copy gets a dedicated contrast veil instead of relying on a stronger image filter. */
+.hero-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(4, 7, 12, 0.8) 0%, rgba(6, 9, 15, 0.62) 38%, rgba(7, 10, 16, 0.16) 72%, transparent 100%);
+  animation: hero-veil-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes hero-veil-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+body.light-mode .hero-section::after {
+  background: linear-gradient(90deg, rgba(250, 252, 255, 0.96) 0%, rgba(248, 250, 253, 0.84) 42%, rgba(248, 250, 253, 0.2) 74%, transparent 100%);
+}
+
+/* Refined hover: more tactile, but no artificial image-brightening. */
+@media (hover: hover) {
+  .btn:hover,
+  .btn-neon:hover,
+  .btn-outline:hover,
+  .btn-3d:hover,
+  .card-link:hover,
+  .desktop-contact:hover,
+  .mobile-contact:hover,
+  .power-footer__cta:hover {
+    transform: translateY(-3px);
+    filter: none;
+  }
+
+  .btn-outline:hover,
+  .card-link:hover {
+    border-color: rgba(255, 77, 134, 0.8);
+    box-shadow: 0 10px 26px rgba(255, 0, 85, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  }
+
+  .btn-neon:hover,
+  .btn-3d:hover,
+  .desktop-contact:hover,
+  .mobile-contact:hover,
+  .power-footer__cta:hover {
+    box-shadow: 0 12px 28px rgba(255, 0, 85, 0.3);
+  }
+}
+
 /* Hero image depth: a separate image layer keeps the copy sharp in both themes. */
 .hero-section {
   isolation: isolate;
