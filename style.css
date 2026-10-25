@@ -6157,3 +6157,179 @@ body:not(.light-mode) .team-page-main .team-table .table-link {
     box-shadow: 0 8px 20px rgba(255, 0, 85, 0.34);
   }
 }
+
+/* Stable vector icons: identical on iOS, Android and desktop browsers. */
+.power-footer__arrow,
+.power-footer__partner-arrow,
+.contact-arrow,
+.nav-dropdown-menu b {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  line-height: 1;
+}
+
+.power-footer__arrow svg,
+.power-footer__partner-arrow svg,
+.power-footer__icon svg,
+.power-footer__email-icon svg,
+.contact-arrow svg,
+.nav-dropdown-menu b svg {
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.power-footer__arrow svg,
+.power-footer__partner-arrow svg,
+.contact-arrow svg,
+.nav-dropdown-menu b svg {
+  width: 1.1em;
+  height: 1.1em;
+}
+
+.power-footer__icon svg,
+.power-footer__email-icon svg {
+  width: 21px;
+  height: 21px;
+}
+
+/* A consistent but restrained hover across primary website actions. */
+@media (hover: hover) {
+  .btn,
+  .btn-neon,
+  .btn-outline,
+  .btn-3d,
+  .card-link,
+  .desktop-contact,
+  .mobile-contact,
+  .power-footer__cta {
+    transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
+  }
+
+  .btn:hover,
+  .btn-neon:hover,
+  .btn-outline:hover,
+  .btn-3d:hover,
+  .card-link:hover,
+  .desktop-contact:hover,
+  .mobile-contact:hover,
+  .power-footer__cta:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.06);
+    box-shadow: 0 10px 24px rgba(255, 0, 85, 0.2);
+  }
+
+  .power-footer__cta:hover .power-footer__arrow svg,
+  .power-footer__partner:hover .power-footer__partner-arrow svg,
+  .desktop-contact:hover .contact-arrow svg,
+  .mobile-contact:hover .contact-arrow svg {
+    transform: translate(2px, -2px);
+  }
+}
+
+@keyframes hero-slide-in {
+  from { opacity: 0; transform: translateX(-28px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.hero-section .container > * {
+  opacity: 0;
+  animation: hero-slide-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero-section .hero-badge { animation-delay: 0.08s; }
+.hero-section .hero-title { animation-delay: 0.18s; }
+.hero-section .hero-subtitle { animation-delay: 0.28s; }
+.hero-section .hero-actions { animation-delay: 0.38s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-section .container > * {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* Light theme: keep the hero photo, but give it a calm and readable treatment. */
+body.light-mode .hero-section,
+html.light-mode .hero-section {
+  background:
+    linear-gradient(105deg, rgba(250, 252, 255, 0.94) 0%, rgba(247, 249, 253, 0.84) 46%, rgba(247, 249, 253, 0.5) 100%),
+    url("imgs/header.jpg") center 42% / cover no-repeat !important;
+}
+
+body.light-mode .hero-title,
+body.light-mode .hero-subtitle {
+  color: #172033 !important;
+  text-shadow: none;
+}
+
+body.light-mode .hero-section .text-stroke {
+  color: transparent !important;
+  -webkit-text-stroke: 1.5px #c91438;
+}
+
+body.light-mode .hero-section .btn-outline {
+  color: #172033 !important;
+  border-color: rgba(23, 32, 51, 0.3) !important;
+  background: rgba(255, 255, 255, 0.56) !important;
+  backdrop-filter: blur(5px);
+}
+
+body.light-mode .hero-section .btn-outline:hover {
+  color: #fff !important;
+  background: #c91438 !important;
+  border-color: #c91438 !important;
+}
+
+/* Hero image depth: a separate image layer keeps the copy sharp in both themes. */
+.hero-section {
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 82% 28%, rgba(255, 0, 85, 0.22), transparent 34%),
+    linear-gradient(110deg, rgba(5, 8, 14, 0.84) 0%, rgba(7, 10, 16, 0.64) 50%, rgba(7, 10, 16, 0.32) 100%) !important;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: -4%;
+  z-index: -1;
+  background: url("imgs/header.jpg") center 46% / cover no-repeat;
+  transform: scale(1.07);
+  animation: hero-image-settle 1.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform;
+}
+
+.hero-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes hero-image-settle {
+  from { transform: scale(1.13) translateX(1.5%); }
+  to { transform: scale(1.07) translateX(0); }
+}
+
+body.light-mode .hero-section,
+html.light-mode .hero-section {
+  background:
+    radial-gradient(circle at 82% 28%, rgba(201, 20, 56, 0.16), transparent 34%),
+    linear-gradient(105deg, rgba(250, 252, 255, 0.94) 0%, rgba(247, 249, 253, 0.82) 48%, rgba(247, 249, 253, 0.44) 100%) !important;
+}
+
+body.light-mode .hero-section::before {
+  background-position: center 42%;
+  filter: saturate(0.82) contrast(0.92) brightness(1.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-section::before {
+    animation: none;
+    transform: scale(1.07);
+  }
+}
