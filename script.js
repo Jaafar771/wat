@@ -3,6 +3,50 @@
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
+  const directionalPaths = {
+    "↗": "M7 17 17 7M9 7h8v8",
+    "→": "M5 12h14M13 6l6 6-6 6",
+    "←": "M19 12H5m6 6-6-6 6-6",
+    "↑": "M12 19V5m-6 6 6-6 6 6",
+  };
+
+  const replaceDirectionalGlyphs = (root = document.body) => {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        return /[↗→←↑]/.test(node.nodeValue || "")
+          ? NodeFilter.FILTER_ACCEPT
+          : NodeFilter.FILTER_REJECT;
+      },
+    });
+    const textNodes = [];
+
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+    textNodes.forEach((node) => {
+      const fragment = document.createDocumentFragment();
+      const pieces = (node.nodeValue || "").split(/([↗→←↑])/);
+
+      pieces.forEach((piece) => {
+        if (!directionalPaths[piece]) {
+          fragment.append(document.createTextNode(piece));
+          return;
+        }
+
+        const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        icon.setAttribute("class", "ui-direction-icon");
+        icon.setAttribute("viewBox", "0 0 24 24");
+        icon.setAttribute("aria-hidden", "true");
+        icon.setAttribute("focusable", "false");
+        path.setAttribute("d", directionalPaths[piece]);
+        icon.append(path);
+        fragment.append(icon);
+      });
+
+      node.replaceWith(fragment);
+    });
+  };
+
   /* =======================================================
      NAVBAR & FOOTER LADEN
      ======================================================= */
@@ -54,6 +98,9 @@ document.addEventListener("DOMContentLoaded", () => {
           footerYear.textContent = new Date().getFullYear();
         }
       }
+
+      // Unicode arrows render as colorful emoji on some phones; use SVG everywhere.
+      replaceDirectionalGlyphs();
 
       /* =====================================================
        NAVBAR ELEMENTE
