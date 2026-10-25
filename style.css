@@ -6286,6 +6286,24 @@ body.light-mode .hero-section .btn-outline:hover {
   border-color: #c91438 !important;
 }
 
+/* Stronger secondary action contrast over the dark hero image. */
+body:not(.light-mode) .hero-section .btn-outline {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.52);
+  background: rgba(7, 10, 16, 0.48);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 8px 22px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(7px);
+}
+
+@media (hover: hover) {
+  body:not(.light-mode) .hero-section .btn-outline:hover {
+    color: #fff;
+    border-color: #ff4d86;
+    background: rgba(255, 0, 85, 0.18);
+    box-shadow: 0 10px 26px rgba(255, 0, 85, 0.22);
+  }
+}
+
 /* Hero image depth: a separate image layer keeps the copy sharp in both themes. */
 .hero-section {
   isolation: isolate;
