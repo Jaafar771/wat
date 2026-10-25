@@ -6365,3 +6365,16 @@ body.light-mode .power-footer__vienna {
     background-size: 100% 100%, auto 130px;
   }
 }
+
+/* In light mode on phones, let the skyline become the complete footer backdrop. */
+@media (max-width: 600px) {
+  .power-footer__vienna,
+  body.light-mode .power-footer__vienna {
+    inset: 0;
+    height: auto;
+    min-height: 100%;
+    background-size: 100% 100%, cover;
+    background-position: center;
+    opacity: 0.28;
+  }
+}
