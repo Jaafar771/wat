@@ -6297,13 +6297,13 @@ body.light-mode .hero-section .btn-outline:hover {
 .hero-section::before {
   content: "";
   position: absolute;
-  inset: -4%;
+  inset: 0;
   z-index: 0;
   pointer-events: none;
   background:
     linear-gradient(110deg, rgba(5, 8, 14, 0.8) 0%, rgba(7, 10, 16, 0.56) 52%, rgba(7, 10, 16, 0.18) 100%),
-    url("imgs/wat-team-hero.jpg") center 46% / cover no-repeat;
-  transform: scale(1.07);
+    url("imgs/wat-team-hero-hq.png") center 46% / cover no-repeat;
+  transform: scale(1.01);
   animation: hero-image-settle 1.45s cubic-bezier(0.16, 1, 0.3, 1) both;
   will-change: transform;
 }
@@ -6314,8 +6314,8 @@ body.light-mode .hero-section .btn-outline:hover {
 }
 
 @keyframes hero-image-settle {
-  from { transform: scale(1.13) translateX(1.5%); }
-  to { transform: scale(1.07) translateX(0); }
+  from { opacity: 0.9; transform: scale(1.025) translateX(0.5%); }
+  to { opacity: 1; transform: scale(1.01) translateX(0); }
 }
 
 body.light-mode .hero-section,
@@ -6328,8 +6328,8 @@ html.light-mode .hero-section {
 body.light-mode .hero-section::before {
   background:
     linear-gradient(105deg, rgba(250, 252, 255, 0.9) 0%, rgba(247, 249, 253, 0.72) 48%, rgba(247, 249, 253, 0.28) 100%),
-    url("imgs/wat-team-hero.jpg") center 42% / cover no-repeat;
-  filter: saturate(0.82) contrast(0.92) brightness(1.08);
+    url("imgs/wat-team-hero-hq.png") center 42% / cover no-repeat;
+  filter: saturate(0.96);
 }
 
 .ui-direction-icon {
@@ -6348,6 +6348,20 @@ body.light-mode .hero-section::before {
 @media (prefers-reduced-motion: reduce) {
   .hero-section::before {
     animation: none;
-    transform: scale(1.07);
+    transform: scale(1.01);
+  }
+}
+
+/* Decorative footer skyline: responsive height without overwhelming the content. */
+.power-footer__vienna,
+body.light-mode .power-footer__vienna {
+  height: clamp(150px, 18vw, 260px);
+}
+
+@media (max-width: 600px) {
+  .power-footer__vienna,
+  body.light-mode .power-footer__vienna {
+    height: 130px;
+    background-size: 100% 100%, auto 130px;
   }
 }
