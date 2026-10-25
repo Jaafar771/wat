@@ -47,6 +47,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (footerPlaceholder && footerData) {
         footerPlaceholder.innerHTML = footerData;
+
+        const footerYear = document.getElementById("power-footer-year");
+
+        if (footerYear) {
+          footerYear.textContent = new Date().getFullYear();
+        }
       }
 
       /* =====================================================
@@ -215,6 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
           (currentPath === "" && cleanHref === "index.html")
         ) {
           link.classList.add("active");
+          link.setAttribute("aria-current", "page");
         }
       });
 
@@ -288,11 +295,31 @@ document.addEventListener("DOMContentLoaded", () => {
      SCROLL ANIMATIONEN
      ========================================================= */
 
+  document.documentElement.classList.add("js");
+
+  const revealTargets = document.querySelectorAll(
+    ".hero-section .container > *, .bento-grid > *, .timeline-row, .join-box, .gallery-item, .training-card, .legal-card, .week-grid > *, .table-responsive, .table-container, .mobile-schedule",
+  );
+
+  revealTargets.forEach((element, index) => {
+    element.classList.add("reveal-on-scroll");
+    element.style.setProperty("--reveal-delay", `${(index % 4) * 65}ms`);
+  });
+
   const observerOptions = {
     root: null,
     rootMargin: "0px 0px -50px 0px",
     threshold: 0.1,
   };
+
+  const revealElements = document.querySelectorAll(
+    ".animate-on-scroll, .reveal-on-scroll",
+  );
+
+  if (!("IntersectionObserver" in window)) {
+    revealElements.forEach((element) => element.classList.add("visible"));
+    return;
+  }
 
   const observer = new IntersectionObserver((entries, observerInstance) => {
     entries.forEach((entry) => {
@@ -304,7 +331,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }, observerOptions);
 
-  document.querySelectorAll(".animate-on-scroll").forEach((element) => {
+  revealElements.forEach((element) => {
     observer.observe(element);
   });
 
@@ -409,7 +436,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const char = line[i];
 
         if (char === '"') {
-          inQuotes = !inQuotes;
+          if (inQuotes && line[i + 1] === '"') {
+            current += '"';
+            i += 1;
+          } else {
+            inQuotes = !inQuotes;
+          }
         } else if (char === "," && !inQuotes) {
           result.push(current.trim().replace(/^"|"$/g, ""));
 
@@ -444,15 +476,12 @@ document.addEventListener("DOMContentLoaded", () => {
       } catch (error) {
         console.error("Spielplan Fehler:", error);
 
-        weekGrid.innerHTML = `
-          <div class="no-matches"
-               style="
-                 padding:20px;
-                 text-align:center;
-               ">
-            Fehler beim Laden des Spielplans.
-          </div>
-        `;
+        weekGrid.replaceChildren();
+
+        const errorMessage = document.createElement("div");
+        errorMessage.className = "no-matches data-status--error";
+        errorMessage.textContent = "Der Spielplan konnte gerade nicht geladen werden.";
+        weekGrid.appendChild(errorMessage);
       }
     }
 
@@ -599,17 +628,15 @@ document.addEventListener("DOMContentLoaded", () => {
         "Samstag",
       ];
 
-      dayHeader.innerHTML = `
+      const dayTitle = document.createElement("span");
+      dayTitle.className = "day-title";
+      dayTitle.textContent = dayNames[dayDate.getDay()];
 
-        <span class="day-title">
-          ${dayNames[dayDate.getDay()]}
-        </span>
+      const dayDateLabel = document.createElement("span");
+      dayDateLabel.className = "day-date";
+      dayDateLabel.textContent = formatDate(dayDate);
 
-        <span class="day-date">
-          ${formatDate(dayDate)}
-        </span>
-
-      `;
+      dayHeader.append(dayTitle, dayDateLabel);
 
       dayCard.appendChild(dayHeader);
 
@@ -650,22 +677,15 @@ document.addEventListener("DOMContentLoaded", () => {
             badge.classList.add("team-blue");
           }
 
-          const color = match.type === "away" ? "#d97706" : "#0284c7";
+          const matchType = document.createElement("span");
+          matchType.className = `match-type match-type--${match.type}`;
+          matchType.textContent = match.label;
 
-          badge.innerHTML = `
+          const matchTeams = document.createElement("span");
+          matchTeams.className = "match-teams";
+          matchTeams.textContent = match.text;
 
-              <span
-                class="match-type"
-                style="color:${color};"
-              >
-                ${match.label}
-              </span>
-
-              <span class="match-teams">
-                ${match.text}
-              </span>
-
-            `;
+          badge.append(matchType, matchTeams);
 
           matchesContainer.appendChild(badge);
         });
@@ -699,7 +719,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const filter = filterInput ? filterInput.value.trim().toUpperCase() : "";
 
-      weekGrid.innerHTML = "";
+      weekGrid.replaceChildren();
 
       const today = new Date();
 
@@ -711,7 +731,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (filter) {
         if (weekDisplay) {
-          weekDisplay.innerText = `Suchergebnisse für "${filterInput.value}"`;
+          weekDisplay.textContent = `Suchergebnisse für „${filterInput.value}“`;
         }
 
         const matchingDays = scheduleData.filter(
@@ -723,20 +743,10 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
         if (!matchingDays.length) {
-          weekGrid.innerHTML = `
-
-            <div
-              class="no-matches"
-              style="
-                padding:20px;
-                text-align:center;
-              "
-            >
-              Keine Spiele für diesen
-              Suchbegriff gefunden.
-            </div>
-
-          `;
+          const noResults = document.createElement("div");
+          noResults.className = "no-matches";
+          noResults.textContent = "Keine Spiele für diesen Suchbegriff gefunden.";
+          weekGrid.appendChild(noResults);
 
           return;
         }
@@ -757,7 +767,7 @@ document.addEventListener("DOMContentLoaded", () => {
       sunday.setDate(sunday.getDate() + 6);
 
       if (weekDisplay) {
-        weekDisplay.innerText = `${formatDate(currentMonday)} – ${formatDate(sunday)}`;
+        weekDisplay.textContent = `${formatDate(currentMonday)} – ${formatDate(sunday)}`;
       }
 
       for (let i = 0; i < 7; i++) {
@@ -829,41 +839,6 @@ document.addEventListener("DOMContentLoaded", () => {
     loadGoogleSheetSchedule();
   }
 
-  /* =====================================================
-   CURRENT PAGE NAVIGATION
-   ===================================================== */
-
-  function hideCurrentNavItem() {
-    const navMenu = document.getElementById("navMenu");
-
-    if (!navMenu) {
-      console.log("NAV MENU NICHT GEFUNDEN");
-      return;
-    }
-
-    let currentPage = window.location.pathname.split("/").pop().toLowerCase();
-
-    if (!currentPage) {
-      currentPage = "index.html";
-    }
-
-    console.log("CURRENT PAGE:", currentPage);
-
-    const items = navMenu.querySelectorAll("[data-page]");
-
-    items.forEach((item) => {
-      const page = item.getAttribute("data-page").toLowerCase();
-
-      console.log("CHECK:", page);
-
-      if (page === currentPage) {
-        console.log("HIDE:", page);
-
-        item.style.setProperty("display", "none", "important");
-      }
-    });
-  }
-  
   /* =========================================================
      BACK TO TOP
      ========================================================= */
@@ -894,116 +869,206 @@ document.addEventListener("DOMContentLoaded", () => {
     updateBackToTop();
   }
 });
-/* ========================================== */
-/* GOOGLE SHEETS RANGLISTE & LIVE-SUCHE       */
-/* ========================================== */
+/* =========================================================
+   GOOGLE SHEETS: RANGLISTE UND NEWS
+   External data is rendered with textContent, never as HTML.
+   ========================================================= */
 
-const sheetCsvUrl = 'https://docs.google.com/spreadsheets/d/195vlUex4eidOQBtazuNM9ylTtt2LR_qe8zbrQ5AP20s/export?format=csv';
+const PLAYERS_CSV_URL =
+  "https://docs.google.com/spreadsheets/d/195vlUex4eidOQBtazuNM9ylTtt2LR_qe8zbrQ5AP20s/export?format=csv";
+const NEWS_CSV_URL =
+  "https://docs.google.com/spreadsheets/d/1wsez9M8EGLXVtY9fFeVoDb1Xrwd2SEb_s6SEXiz22pY/export?format=csv";
 
-let allPlayers = [];
+function parseCsvRows(csvText) {
+  const rows = [];
+  let row = [];
+  let value = "";
+  let inQuotes = false;
 
-// Event-Listener, der wartet, bis die Seite komplett geladen ist
-document.addEventListener('DOMContentLoaded', () => {
-  const tableBody = document.getElementById('playerTableBody');
-  if (tableBody) {
-    loadGoogleSheetData();
-  }
-});
+  for (let index = 0; index < csvText.length; index += 1) {
+    const character = csvText[index];
+    const nextCharacter = csvText[index + 1];
 
-async function loadGoogleSheetData() {
-  const tableBody = document.getElementById('playerTableBody');
-  if (!tableBody) return;
+    if (character === '"') {
+      if (inQuotes && nextCharacter === '"') {
+        value += '"';
+        index += 1;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (character === "," && !inQuotes) {
+      row.push(value.trim());
+      value = "";
+    } else if ((character === "\n" || character === "\r") && !inQuotes) {
+      if (character === "\r" && nextCharacter === "\n") {
+        index += 1;
+      }
 
-  try {
-    const response = await fetch(sheetCsvUrl);
-    const data = await response.text();
-    parseAndDisplayCSV(data);
-  } catch (error) {
-    console.error('Fehler beim Laden der Tabelle:', error);
-    tableBody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--neon-red);">Fehler beim Laden der Daten. Bitte prüfen ob das Google Sheet öffentlich freigegeben ist.</td></tr>`;
-  }
-}
-
-function parseAndDisplayCSV(csvText) {
-  const rows = csvText.split('\n');
-  allPlayers = [];
-
-  for (let i = 0; i < rows.length; i++) {
-    let row = rows[i].trim();
-    if (!row) continue;
-    
-    // CSV Zeile sauber aufteilen
-    const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(col => col.replace(/^"\vert{}"$/g, '').trim());
-    
-    // Da deine CSV so aufgebaut ist: [leer, Name, Jahr, Punkte]
-    // cols[1] = Spielername
-    // cols[2] = Jahr
-    // cols[3] = RC-Punkte / Wert
-    if (cols.length >= 3 && cols[2] && !isNaN(cols[2])) {
-      allPlayers.push({
-        name: cols[1],       
-        year: cols[2],       
-        points: cols[3] || '' 
-      });
+      row.push(value.trim());
+      if (row.some((cell) => cell !== "")) rows.push(row);
+      row = [];
+      value = "";
+    } else {
+      value += character;
     }
   }
 
-  renderTable(allPlayers);
+  row.push(value.trim());
+  if (row.some((cell) => cell !== "")) rows.push(row);
+  return rows;
 }
 
-function renderTable(players) {
-  const tbody = document.getElementById('playerTableBody');
-  if (!tbody) return;
-  tbody.innerHTML = '';
+// Some Google Sheets are exported as one quoted cell per row (for example
+// "Datum,Titel,Text"). Normalize that variant before reading the columns.
+function normalizeSpreadsheetRows(csvText) {
+  return parseCsvRows(csvText).map((row) => {
+    if (row.length !== 1 || !row[0].includes(",")) return row;
 
-  if (players.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="3" style="text-align: center;">Keine Spieler gefunden.</td></tr>`;
-    return;
-  }
-
-  players.forEach((player) => {
-    const tr = document.createElement('tr');
-    // Hier wird KEIN Rang (#1, #2...) mehr erzeugt! Nur noch Name, Jahr und Punkte:
-    tr.innerHTML = `
-      <td>${player.name}</td>
-      <td>${player.year}</td>
-      <td><strong>${player.points}</strong></td>
-    `;
-    tbody.appendChild(tr);
+    return parseCsvRows(row[0])[0] || row;
   });
 }
 
-function filterPlayers() {
-  const searchInput = document.getElementById('playerSearch');
-  if (!searchInput) return;
-  
-  const query = searchInput.value.toLowerCase();
-  const filtered = allPlayers.filter(p => p.name.toLowerCase().includes(query));
-  
-  const tbody = document.getElementById('playerTableBody');
-  if (!tbody) return;
-  tbody.innerHTML = '';
+function createTableMessage(message, isError = false) {
+  const row = document.createElement("tr");
+  const cell = document.createElement("td");
 
-  if (filtered.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="3" style="text-align: center;">Keine Spieler gefunden.</td></tr>`;
-    return;
-  }
+  cell.colSpan = 3;
+  cell.className = isError ? "table-status table-status--error" : "table-status";
+  cell.textContent = message;
+  row.append(cell);
+  return row;
+}
 
-  filtered.forEach((player) => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${player.name}</td>
-      <td>${player.year}</td>
-      <td><strong>${player.points}</strong></td>
-    `;
-    tbody.appendChild(tr);
-  });
+function initPlayerSearch() {
+  const tableBody = document.getElementById("playerTableBody");
+  const searchInput = document.getElementById("playerSearch");
+
+  if (!tableBody || !searchInput) return;
+
+  let players = [];
+
+  const render = () => {
+    const searchTerm = searchInput.value.trim().toLocaleLowerCase("de-AT");
+    const visiblePlayers = players.filter((player) =>
+      player.name.toLocaleLowerCase("de-AT").includes(searchTerm),
+    );
+
+    if (!visiblePlayers.length) {
+      tableBody.replaceChildren(createTableMessage("Keine Spieler gefunden."));
+      return;
+    }
+
+    const rows = visiblePlayers.map((player) => {
+      const row = document.createElement("tr");
+      const name = document.createElement("td");
+      const year = document.createElement("td");
+      const points = document.createElement("td");
+      const pointsValue = document.createElement("strong");
+
+      name.dataset.label = "Spieler";
+      year.dataset.label = "Jahr";
+      points.dataset.label = "RC-Punkte";
+      name.textContent = player.name;
+      year.textContent = player.year;
+      pointsValue.textContent = player.points;
+      points.append(pointsValue);
+      row.append(name, year, points);
+      return row;
+    });
+
+    tableBody.replaceChildren(...rows);
+  };
+
+  searchInput.addEventListener("input", render);
+
+  fetch(PLAYERS_CSV_URL)
+    .then((response) => {
+      if (!response.ok) throw new Error("Rangliste konnte nicht geladen werden.");
+      return response.text();
+    })
+    .then((csvText) => {
+      players = parseCsvRows(csvText)
+        .map((row) => ({
+          name: row[1] || "",
+          year: row[2] || "",
+          points: row[3] || "",
+        }))
+        .filter((player) => player.name && /^\d{4}$/.test(player.year));
+
+      render();
+    })
+    .catch((error) => {
+      console.error("Rangliste konnte nicht geladen werden:", error);
+      tableBody.replaceChildren(
+        createTableMessage("Die Rangliste konnte gerade nicht geladen werden.", true),
+      );
+    });
+}
+
+function initNews() {
+  const newsGrid = document.getElementById("newsGrid");
+  if (!newsGrid) return;
+
+  const showMessage = (message, isError = false) => {
+    const status = document.createElement("p");
+    status.className = isError ? "data-status data-status--error" : "data-status";
+    status.textContent = message;
+    newsGrid.replaceChildren(status);
+  };
+
+  fetch(NEWS_CSV_URL)
+    .then((response) => {
+      if (!response.ok) throw new Error("News konnten nicht geladen werden.");
+      return response.text();
+    })
+    .then((csvText) => {
+      const articles = normalizeSpreadsheetRows(csvText)
+        .slice(1)
+        .map(([date = "", title = "", ...content]) => ({
+          date,
+          title,
+          content: content.join(", "),
+        }))
+        .filter((article) => article.date && article.title);
+
+      if (!articles.length) {
+        showMessage("Aktuell sind keine News vorhanden.");
+        return;
+      }
+
+      const cards = articles.map((article) => {
+        const card = document.createElement("article");
+        card.className = "news-card";
+
+        const header = document.createElement("div");
+        header.className = "news-header";
+
+        const date = document.createElement("span");
+        date.className = "news-date";
+        date.textContent = article.date;
+
+        const title = document.createElement("h2");
+        title.className = "news-title";
+        title.textContent = article.title;
+
+        const text = document.createElement("p");
+        text.className = "news-text";
+        text.textContent = article.content;
+
+        header.append(date);
+        card.append(header, title, text);
+        return card;
+      });
+
+      newsGrid.replaceChildren(...cards);
+    })
+    .catch((error) => {
+      console.error("News konnten nicht geladen werden:", error);
+      showMessage("Die News konnten gerade nicht geladen werden.", true);
+    });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const year = document.getElementById("power-footer-year");
-
-  if (year) {
-    year.textContent = new Date().getFullYear();
-  }
+  initPlayerSearch();
+  initNews();
 });

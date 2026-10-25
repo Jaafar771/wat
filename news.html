@@ -2,8 +2,10 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>News & Aktuelles – WAT Mariahilf Tischtennis</title>
+  <meta name="description" content="Aktuelle News, Meisterschaften und Vereinsinfos vom WAT Mariahilf Tischtennis in Wien.">
+  <meta name="theme-color" content="#0a0d14">
   
   <link rel="icon" type="image/png" sizes="150x150" href="imgs/favlogo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,7 +34,7 @@
   <section class="section">
     <div class="container">
       <div class="news-grid" id="newsGrid">
-        <p style="color: var(--text-dim);">Lade News...</p>
+        <p class="data-status">Lade News...</p>
       </div>
     </div>
   </section>
@@ -41,55 +43,7 @@
   <div id="footer-placeholder"></div>
 
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // Trage hier den CSV-Link deiner News-Google-Tabelle ein:
-    const newsCsvUrl = "https://docs.google.com/spreadsheets/d/1wsez9M8EGLXVtY9fFeVoDb1Xrwd2SEb_s6SEXiz22pY/export?format=csv";
-      const newsGrid = document.getElementById('newsGrid');
-
-      fetch(newsCsvUrl)
-        .then(response => response.text())
-        .then(text => {
-          const lines = text.split('\n').slice(1); // Überspringt die Kopfzeile
-          newsGrid.innerHTML = ''; // Lade-Text löschen
-
-          let hasContent = false;
-
-          lines.forEach(line => {
-            // CSV-Zeile aufteilen (berücksichtigt einfache Kommas im Text)
-            const parts = line.split(',');
-            if (parts.length >= 3) {
-              const date = parts[0].trim();
-              const title = parts[1].trim();
-              const textContent = parts.slice(2).join(',').trim(); // Falls im Text Kommas vorkommen
-
-              if (date && title) {
-                hasContent = true;
-                const card = document.createElement('article');
-                card.className = 'news-card';
-                card.innerHTML = `
-                  <div class="news-header">
-                    <span class="news-date">${date}</span>
-                  </div>
-                  <h2 class="news-title">${title}</h2>
-                  <p class="news-text">${textContent}</p>
-                `;
-                newsGrid.appendChild(card);
-              }
-            }
-          });
-
-          if (!hasContent) {
-            newsGrid.innerHTML = `<p style="color: var(--text-dim);">Aktuell sind keine News vorhanden.</p>`;
-          }
-        })
-        .catch(err => {
-          console.error("Fehler beim Laden der News:", err);
-          newsGrid.innerHTML = `<p style="color: var(--neon-red);">Fehler beim Laden der News.</p>`;
-        });
-    });
-  </script>
-   <script src="script.js"></script>
+  <script src="script.js"></script>
 
 </body>
 </html>

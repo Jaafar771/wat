@@ -2,8 +2,10 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Meisterspieler – WAT Mariahilf</title>
+  <meta name="description" content="Offizielle RC-Rangliste und Meisterspieler des WAT Mariahilf Tischtennis.">
+  <meta name="theme-color" content="#0a0d14">
   
   <link rel="icon" type="image/png" sizes="400x400" href="imgs/favlogo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,7 +36,8 @@
       
       <!-- Steuerungsleiste / Suchfeld -->
       <div class="controls-bar player-controls">
-        <input type="text" class="search-input" id="playerSearch" placeholder="Spieler suchen (Name)..." onkeyup="filterPlayers()">
+        <label class="visually-hidden" for="playerSearch">Spieler suchen</label>
+        <input type="search" class="search-input" id="playerSearch" placeholder="Spieler suchen (Name)..." autocomplete="off">
       </div>
 
       <!-- Tabellen-Container für perfekte Handy-Ansicht (Scrollbar) -->
@@ -47,9 +50,9 @@
               <th>RC-Punkte</th>
             </tr>
           </thead>
-          <tbody id="playerTableBody">
+          <tbody id="playerTableBody" aria-live="polite">
             <tr>
-              <td colspan="3" style="text-align: center; color: var(--text-dim);">Lade Rangliste von Google Sheets...</td>
+              <td colspan="3" class="table-status">Lade Rangliste von Google Sheets...</td>
             </tr>
           </tbody>
         </table>

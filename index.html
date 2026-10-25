@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WAT Mariahilf – Tischtennis Club 1060</title>
+  <meta name="description" content="WAT Mariahilf Tischtennis in Wien 1060: Training für Jugend, Hobby und Meisterschaft, Hallenzeiten und Probetraining.">
+  <meta name="theme-color" content="#0a0d14">
   
 <link rel="icon" href="imgs/favlogo.png" sizes="any">
 <link rel="apple-touch-icon" href="imgs/favlogo.png">
@@ -25,7 +27,7 @@
   <section class="hero-section">
     <div class="container">
       <div class="hero-badge">WIEN 6 • SEKTION TISCHTENNIS</div>
-      <h1 class="hero-title">POWER<br><span class="text-stroke">MARIAHHILF</span> TISCHTENNES</h1>
+      <h1 class="hero-title">POWER<br><span class="text-stroke">MARIAHILF</span> TISCHTENNIS</h1>
       <p class="hero-subtitle">Vom Freizeit-Match bis zur Wiener Meisterschaft. Erlebe Tischtennis auf höchstem Niveau in der Liniengasse.</p>
       
       <div class="hero-actions">
@@ -35,7 +37,6 @@
     </div>
   </section>
 
-</div>
   <section id="bento" class="section">
     <div class="container">
       <div class="section-tag">VEREINS-HUB</div>
@@ -47,7 +48,7 @@
         <div class="bento-card bento-hero-card">
           <div class="card-tag">Jugend & Nachwuchs</div>
           <h3>Die nächsten Champions trainieren hier</h3>
-          <p>Erlernen der richtigen Technik und Beinarbeit, Verbesserung von Reaktion, Kondition und Koordination.</p>
+          <p>Technik, Beinarbeit und Spielgefühl – mit Freude und professioneller Begleitung.</p>
           <div class="badge-row">
             <span class="pill">Di 16:00 Uhr</span>
             <span class="pill">Do 16:30 Uhr</span>
@@ -67,7 +68,7 @@
           <div class="wide-content">
             <div class="card-tag">Meisterschaft</div>
             <h3>WTTV-Meisterschafts-Betrieb</h3>
-            <p>In den Wiener Spielklassen stellt der WAT Mariahilf diese Saison 1 Damen- und 10 Herren-Teams.</p>
+            <p>Mit einem Damen- und zehn Herrenteams sind wir in den Wiener Spielklassen vertreten.</p>
           </div>
           <div class="big-stat">11+ <small>Teams</small></div>
         </div>
@@ -76,14 +77,14 @@
         <div class="bento-card">
           <div class="card-icon">📍</div>
           <h4>Zentrale Lage</h4>
-          <p>Liniengasse 13, 1060 Wien<br><small>U3 Zieglergasse / U6 Westbahnhof / U4 Margaretengürtel</small></p>
+          <p>Liniengasse 13, 1060 Wien<br><small>U3 Zieglergasse · U6 Westbahnhof · U4 Margaretengürtel</small></p>
         </div>
 
         <!-- Small Card 2 -->
         <div class="bento-card">
           <div class="card-icon">🤝</div>
           <h4>Hobby & Senioren</h4>
-          <p>Jeden Dienstag und Donnerstag von 10:00 bis 13:00 Uhr freies Spielen für SeniorInnen</p>
+          <p>Dienstag &amp; Donnerstag, 10:00–13:00 Uhr: freies Spiel für Seniorinnen und Senioren.</p>
         </div>
 
 
@@ -117,16 +118,16 @@
           </div>
           <div class="info-col">
             <div class="slot">
-              <span class="slot-time">10:00 - 13:00</span>
+              <span class="slot-time">10:00 – 13:00</span>
               <span class="slot-title">Senioren</span>
             </div>
             
             <div class="slot highlight-slot">
-              <span class="slot-time">16:00 - 17:30</span>
+              <span class="slot-time">16:00 – 17:30</span>
               <span class="slot-title">Nachwuchstraining (mit Trainer)</span>
             </div>
             <div class="slot">
-              <span class="slot-time">18:00 - 22:00</span>
+              <span class="slot-time">18:00 – 22:00</span>
               <span class="slot-title">Meisterschaft und Leistungssport</span>
             </div>
           </div>
@@ -139,15 +140,15 @@
           </div>
           <div class="info-col">
            <div class="slot">
-              <span class="slot-time">10:00 - 13:00</span>
+              <span class="slot-time">10:00 – 13:00</span>
               <span class="slot-title">Senioren</span>
             </div>
             <div class="slot">
-              <span class="slot-time">16:30 - 18:00</span>
+              <span class="slot-time">16:30 – 18:00</span>
               <span class="slot-title">Nachwuchstraining (mit Trainer)</span>
             </div>
              <div class="slot highlight-slot">
-              <span class="slot-time">18:00 - 22:00</span>
+              <span class="slot-time">18:00 – 22:00</span>
               <span class="slot-title">Meisterschaft und Leistungssport</span>
             </div>
           </div>
@@ -166,16 +167,19 @@
       </div>
       
       <form class="bento-form" action="https://formspree.io/f/mvkzkpdk" method="POST">
-        <input type="text" name="name" placeholder="Dein Name" required>
-        <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required>
-        <select name="interesse">
+        <label class="visually-hidden" for="contact-name">Dein Name</label>
+        <input id="contact-name" type="text" name="name" placeholder="Dein Name" autocomplete="name" required>
+        <label class="visually-hidden" for="contact-email">Deine E-Mail-Adresse</label>
+        <input id="contact-email" type="email" name="email" placeholder="Deine E-Mail-Adresse" autocomplete="email" required>
+        <label class="visually-hidden" for="contact-interest">Interesse</label>
+        <select id="contact-interest" name="interesse">
           <option value="Nachwuchs">Nachwuchs / Jugend</option>
           <option value="Hobby">Hobbyspieler</option>
           <option value="Meisterschaft">Meisterschaft</option>
         </select>
         
-        <!-- Optionales Textfeld für Nachrichten -->
-        <textarea name="nachricht" placeholder="Deine Nachricht (optional)..." rows="3" style="background: rgba(0, 0, 0, 0.5); border: 1px solid var(--border-glow); padding: 14px; border-radius: var(--radius-md); color: white; font-family: inherit; font-size: 0.95rem; outline: none; resize: vertical;"></textarea>
+        <label class="visually-hidden" for="contact-message">Deine Nachricht</label>
+        <textarea id="contact-message" name="nachricht" placeholder="Deine Nachricht (optional)" rows="3"></textarea>
         
 <button type="submit" class="btn-3d">
   <span class="shadow"></span>
