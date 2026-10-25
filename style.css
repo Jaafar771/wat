@@ -819,74 +819,6 @@ body.light-mode .nav-dropdown-menu small {
   transition: transform 0.2s ease;
 }
 
-/* Browser-stable line icons: no platform-dependent emoji glyphs. */
-.icon-arrow,
-.contact-arrow svg,
-.nav-dropdown-menu b svg {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  flex: 0 0 auto;
-  vertical-align: -0.12em;
-}
-
-.icon-arrow {
-  position: relative;
-  margin-inline: 0.28em 0;
-}
-
-.icon-arrow::before,
-.icon-arrow::after {
-  content: "";
-  position: absolute;
-  background: currentColor;
-  border-radius: 999px;
-}
-
-.icon-arrow--right::before,
-.icon-arrow--left::before {
-  width: 0.82em;
-  height: 0.12em;
-  top: 0.44em;
-}
-
-.icon-arrow--right::before { left: 0.04em; }
-.icon-arrow--left::before { right: 0.04em; }
-
-.icon-arrow--right::after,
-.icon-arrow--left::after {
-  width: 0.48em;
-  height: 0.12em;
-  top: 0.29em;
-}
-
-.icon-arrow--right::after {
-  right: 0.02em;
-  transform: rotate(45deg);
-  transform-origin: right center;
-}
-
-.icon-arrow--left::after {
-  left: 0.02em;
-  transform: rotate(-45deg);
-  transform-origin: left center;
-}
-
-.contact-arrow svg,
-.nav-dropdown-menu b svg {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.nav-dropdown-menu b {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .desktop-contact:hover .contact-arrow {
   transform: translate(2px, -2px);
 }
@@ -2232,6 +2164,51 @@ html.light-mode .hero-section {
   color: var(--footer-red);
   font-size: 17px;
   text-align: right;
+}
+
+/* Footer icons are vectors so iOS cannot replace them with emoji. */
+.power-footer__arrow,
+.power-footer__partner-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  line-height: 1;
+}
+
+.power-footer__arrow svg,
+.power-footer__partner-arrow svg,
+.power-footer__icon svg,
+.power-footer__email-icon svg {
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.power-footer__arrow svg,
+.power-footer__partner-arrow svg {
+  width: 18px;
+  height: 18px;
+}
+
+.power-footer__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.power-footer__email-icon svg {
+  width: 21px;
+  height: 21px;
+}
+
+.power-footer__cta:hover .power-footer__arrow svg,
+.power-footer__map-link:hover .power-footer__arrow svg,
+.power-footer__partner:hover .power-footer__partner-arrow svg,
+.power-footer__email-card:hover .power-footer__partner-arrow svg {
+  transform: translate(2px, -2px);
 }
 
 /* =====================================================
@@ -6223,144 +6200,5 @@ body:not(.light-mode) .team-page-main .team-table .table-link {
     background: linear-gradient(135deg, #ff4d86 0%, #e50052 100%);
     border-color: transparent;
     box-shadow: 0 8px 20px rgba(255, 0, 85, 0.34);
-  }
-
-/* The external-link marker must remain a line icon on iOS as well. */
-.team-page-main .team-table .table-link > span[aria-hidden="true"] {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1em;
-  height: 1em;
-  margin-left: 0.2em;
-  overflow: hidden;
-  font-size: 0;
-}
-
-.team-page-main .team-table .table-link > span[aria-hidden="true"]::before {
-  content: "";
-  width: 0.56em;
-  height: 0.56em;
-  border-top: 0.12em solid currentColor;
-  border-right: 0.12em solid currentColor;
-  transform: translate(-0.04em, 0.04em);
-}
-
-.team-page-main .team-table .table-link > span[aria-hidden="true"]::after {
-  content: "";
-  width: 0.72em;
-  height: 0.12em;
-  background: currentColor;
-  border-radius: 999px;
-  transform: rotate(-45deg) translate(-0.08em, -0.08em);
-}
-
-/* Back-to-top uses a CSS line arrow instead of a platform glyph. */
-.back-to-top {
-  font-size: 0;
-}
-
-.back-to-top::before,
-.back-to-top::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  background: currentColor;
-  border-radius: 999px;
-}
-
-.back-to-top::before {
-  width: 2px;
-  height: 16px;
-  top: 13px;
-  transform: translateX(-50%);
-}
-
-.back-to-top::after {
-  width: 10px;
-  height: 10px;
-  top: 13px;
-  border-top: 2px solid currentColor;
-  border-left: 2px solid currentColor;
-  background: transparent;
-  transform: translateX(-50%) rotate(45deg);
-}
-}
-
-/* ==========================================
-   FOOTER SVG ICON FIX - iOS / ANDROID
-   ========================================== */
-
-.power-footer__arrow,
-.power-footer__partner-arrow {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  line-height: 1;
-}
-
-.power-footer__arrow svg,
-.power-footer__partner-arrow svg {
-  display: block;
-  width: 18px;
-  height: 18px;
-  fill: none;
-  stroke: currentColor;
-}
-
-.power-footer__icon,
-.power-footer__email-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.power-footer__icon svg,
-.power-footer__email-icon svg {
-  display: block;
-  width: 22px;
-  height: 22px;
-  fill: none;
-  stroke: currentColor;
-}
-
-/* CTA Arrow */
-.power-footer__cta .power-footer__arrow svg {
-  width: 20px;
-  height: 20px;
-}
-
-/* Smooth hover animation */
-.power-footer__arrow svg,
-.power-footer__partner-arrow svg {
-  transition: transform 0.25s ease;
-}
-
-.power-footer__cta:hover .power-footer__arrow svg,
-.power-footer__map-link:hover .power-footer__arrow svg,
-.power-footer__partner:hover .power-footer__partner-arrow svg,
-.power-footer__email-card:hover .power-footer__partner-arrow svg {
-  transform: translate(3px, -3px);
-}
-
-/* Mobile optimization */
-@media (max-width: 768px) {
-  .power-footer__arrow svg,
-  .power-footer__partner-arrow svg {
-    width: 18px;
-    height: 18px;
-  }
-
-  .power-footer__icon svg,
-  .power-footer__email-icon svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .power-footer__cta .power-footer__arrow svg {
-    width: 20px;
-    height: 20px;
   }
 }
