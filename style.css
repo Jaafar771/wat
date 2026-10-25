@@ -6353,6 +6353,63 @@ body.light-mode .hero-section::after {
   }
 }
 
+/* Navigation controls always retain priority over link width. */
+.nav-actions {
+  position: relative;
+  z-index: 3;
+  flex: 0 0 auto;
+}
+
+@media (min-width: 851px) {
+  .tt-pro-switch,
+  .desktop-contact {
+    display: inline-flex !important;
+    visibility: visible;
+  }
+}
+
+@media (max-width: 850px) {
+  .tt-pro-switch,
+  .menu-toggle {
+    display: inline-flex !important;
+    visibility: visible;
+  }
+
+  .menu-toggle {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .desktop-contact {
+    display: none !important;
+  }
+}
+
+/* Keep desktop actions visible on narrower laptops, before the mobile menu takes over. */
+@media (min-width: 851px) and (max-width: 1100px) {
+  .nav-brand {
+    width: 125px;
+  }
+
+  .nav-logo {
+    max-width: 120px;
+  }
+
+  .main-nav {
+    gap: 0;
+  }
+
+  .nav-link {
+    padding-inline: 7px;
+    font-size: 0.76rem;
+  }
+
+  .desktop-contact {
+    padding-inline: 10px;
+    font-size: 0.76rem;
+  }
+}
+
 /* Hero image depth: a separate image layer keeps the copy sharp in both themes. */
 .hero-section {
   isolation: isolate;
