@@ -6300,3 +6300,24 @@ body:not(.light-mode) .team-page-main .team-table .table-link {
     animation: none;
   }
 }
+
+/* The injected footer must grow with every card; never clip later sections. */
+#footer-placeholder,
+#footer-placeholder .power-footer {
+  display: block;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+#footer-placeholder .power-footer__container {
+  overflow: visible;
+  padding-bottom: 42px;
+}
+
+#footer-placeholder .power-footer__grid,
+#footer-placeholder .power-footer__partners,
+#footer-placeholder .power-footer__bottom {
+  overflow: visible;
+}
