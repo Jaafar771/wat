@@ -2678,6 +2678,34 @@ body.light-mode .power-footer__cta:hover {
   }
 }
 
+/* Keep every footer section in the document flow at intermediate desktop widths. */
+.power-footer__grid {
+  grid-auto-rows: auto;
+  align-content: start;
+}
+
+@media (min-width: 601px) and (max-width: 950px) {
+  .power-footer__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .power-footer__section:last-child {
+    grid-column: auto;
+    max-width: none;
+  }
+
+  .power-footer__partner {
+    grid-template-columns: 58px minmax(0, 1fr) 14px;
+    gap: 8px;
+  }
+
+  .power-footer__partner-logo {
+    width: 58px;
+    height: 42px;
+  }
+}
+
 /* =====================================================
    SMALL MOBILE
 ===================================================== */
