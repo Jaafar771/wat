@@ -2166,51 +2166,6 @@ html.light-mode .hero-section {
   text-align: right;
 }
 
-/* Footer icons are vectors so iOS cannot replace them with emoji. */
-.power-footer__arrow,
-.power-footer__partner-arrow {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  line-height: 1;
-}
-
-.power-footer__arrow svg,
-.power-footer__partner-arrow svg,
-.power-footer__icon svg,
-.power-footer__email-icon svg {
-  display: block;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.power-footer__arrow svg,
-.power-footer__partner-arrow svg {
-  width: 18px;
-  height: 18px;
-}
-
-.power-footer__icon svg {
-  width: 20px;
-  height: 20px;
-}
-
-.power-footer__email-icon svg {
-  width: 21px;
-  height: 21px;
-}
-
-.power-footer__cta:hover .power-footer__arrow svg,
-.power-footer__map-link:hover .power-footer__arrow svg,
-.power-footer__partner:hover .power-footer__partner-arrow svg,
-.power-footer__email-card:hover .power-footer__partner-arrow svg {
-  transform: translate(2px, -2px);
-}
-
 /* =====================================================
    EMAIL CARD
 ===================================================== */
@@ -2675,34 +2630,6 @@ body.light-mode .power-footer__cta:hover {
 
   body.light-mode .power-footer__vienna {
     display: none;
-  }
-}
-
-/* Keep every footer section in the document flow at intermediate desktop widths. */
-.power-footer__grid {
-  grid-auto-rows: auto;
-  align-content: start;
-}
-
-@media (min-width: 601px) and (max-width: 950px) {
-  .power-footer__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 20px;
-  }
-
-  .power-footer__section:last-child {
-    grid-column: auto;
-    max-width: none;
-  }
-
-  .power-footer__partner {
-    grid-template-columns: 58px minmax(0, 1fr) 14px;
-    gap: 8px;
-  }
-
-  .power-footer__partner-logo {
-    width: 58px;
-    height: 42px;
   }
 }
 
@@ -6229,95 +6156,4 @@ body:not(.light-mode) .team-page-main .team-table .table-link {
     border-color: transparent;
     box-shadow: 0 8px 20px rgba(255, 0, 85, 0.34);
   }
-}
-
-/* Final footer safeguard: never hide the partner or contact section on desktop. */
-@media (min-width: 601px) and (max-width: 1100px) {
-  body .power-footer__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    align-items: start;
-    gap: 20px;
-  }
-
-  body .power-footer__section:last-child {
-    grid-column: auto !important;
-    max-width: none;
-  }
-}
-
-/* Consistent lift for all interactive buttons on pointer devices. */
-@media (hover: hover) {
-  .btn,
-  .btn-neon,
-  .btn-outline,
-  .card-link,
-  .desktop-contact,
-  .mobile-contact,
-  .power-footer__cta,
-  button[type="submit"] {
-    transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease;
-  }
-
-  .btn:hover,
-  .btn-neon:hover,
-  .btn-outline:hover,
-  .card-link:hover,
-  .desktop-contact:hover,
-  .mobile-contact:hover,
-  .power-footer__cta:hover,
-  button[type="submit"]:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.06);
-    box-shadow: 0 10px 24px rgba(255, 0, 85, 0.22);
-  }
-}
-
-/* Hero copy enters in a calm, staggered slide instead of appearing all at once. */
-@keyframes heroCopySlideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-28px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.hero-section .container > * {
-  opacity: 0;
-  animation: heroCopySlideIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.hero-section .hero-badge { animation-delay: 0.08s; }
-.hero-section .hero-title { animation-delay: 0.18s; }
-.hero-section .hero-subtitle { animation-delay: 0.29s; }
-.hero-section .hero-actions { animation-delay: 0.4s; }
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-section .container > * {
-    opacity: 1;
-    animation: none;
-  }
-}
-
-/* The injected footer must grow with every card; never clip later sections. */
-#footer-placeholder,
-#footer-placeholder .power-footer {
-  display: block;
-  height: auto !important;
-  min-height: 0 !important;
-  max-height: none !important;
-  overflow: visible !important;
-}
-
-#footer-placeholder .power-footer__container {
-  overflow: visible;
-  padding-bottom: 42px;
-}
-
-#footer-placeholder .power-footer__grid,
-#footer-placeholder .power-footer__partners,
-#footer-placeholder .power-footer__bottom {
-  overflow: visible;
 }
